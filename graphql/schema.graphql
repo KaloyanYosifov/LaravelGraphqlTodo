@@ -13,7 +13,7 @@ type User {
     id: ID!
     name: String!
     email: String!
-    todos: [Todo]! @hasMany
+    todos(input: FindTodoInput): [Todo]! @hasMany
     createdAt: DateTime! @rename(attribute: "created_at")
     updatedAt: DateTime! @rename(attribute: "updated_at")
 }

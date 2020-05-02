@@ -11,7 +11,11 @@ input FindTodoInput {
     id: ID @eq
 }
 
-extend type Query {
-    todos: [Todo]! @paginate(defaultCount: 15)
-    todo(input: FindTodoInput): Todo @find
+input CreateTodoInput {
+    name: String!
+    text: String
+}
+
+extend type Mutation {
+    createTodo(input: CreateTodoInput! @spread): Todo! @create @guard @inject(context: "user.id", name: "user_id")
 }
