@@ -13,6 +13,7 @@ type User {
     id: ID!
     name: String!
     email: String!
+    todos: [Todo]! @hasMany
     createdAt: DateTime! @rename(attribute: "created_at")
     updatedAt: DateTime! @rename(attribute: "updated_at")
 }
@@ -23,5 +24,5 @@ input FindUserInput {
 
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
-    user(input: FindUserInput! @eq): User @find
+    user(input: FindUserInput!): User @find
 }
