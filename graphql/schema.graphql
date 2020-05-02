@@ -7,15 +7,21 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sO`, e.g. `2020-04-20T13:53:12+02:00`."
 scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
 
-type Query {
-    users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
-}
+#import ../app/Features/*/Graphql/*.graphql
 
 type User {
     id: ID!
     name: String!
     email: String!
-    created_at: DateTime!
-    updated_at: DateTime!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input FindUserInput {
+    id: ID @eq
+}
+
+type Query {
+    users: [User!]! @paginate(defaultCount: 10)
+    user(input: FindUserInput! @eq): User @find
 }

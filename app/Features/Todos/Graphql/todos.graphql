@@ -1,0 +1,17 @@
+type Todo {
+    id: ID!
+    name: String!
+    text: String
+    user: User @belongsTo
+    createdAt: DateTime @rename(attribute: "created_at")
+    updatedAt: DateTime @rename(attribute: "updated_at")
+}
+
+input FindTodoInput {
+    id: ID @eq
+}
+
+extend type Query {
+    todos: [Todo]! @paginate(defaultCount: 15)
+    todo(input: FindTodoInput): Todo @find
+}
