@@ -7,7 +7,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sO`, e.g. `2020-04-20T13:53:12+02:00`."
 scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
 
-#import ../app/Features/*/Graphql/*.graphql
+#import ../app/Features/*/GraphQL/*.graphql
 
 type User {
     id: ID!
@@ -37,10 +37,17 @@ input SignInInput {
     password: String!
 }
 
+input SignUpInput {
+    name: String!
+    email: String!
+    password: String!
+}
+
 type Query {
     me: User @auth
 }
 
 type Mutation {
-    signIn(input: SignInInput!): UserWithToken
+    signIn(input: SignInInput!): UserWithToken!
+    signUp(input: SignUpInput!): UserWithToken!
 }
