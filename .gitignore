@@ -13,3 +13,6 @@ yarn-error.log
 schema-directives.graphql.
 _lighthouse_ide_helper.php
 .idea
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php
