@@ -18,11 +18,29 @@ type User {
     updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
+type UserWithToken {
+    id: ID!
+    name: String!
+    email: String!
+    api_token: String!
+    todos: [Todo]! @hasMany
+    createdAt: DateTime! @rename(attribute: "created_at")
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
 input FindUserInput {
     id: ID @eq
 }
 
+input SignInInput {
+    email: String!
+    password: String!
+}
+
 type Query {
-    users: [User!]! @paginate(defaultCount: 10)
-    user(input: FindUserInput!): User @find
+    me: User @auth
+}
+
+type Mutation {
+    signIn(input: SignInInput!): UserWithToken
 }
