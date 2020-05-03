@@ -11,7 +11,7 @@
                 <div v-if="loading" class="spinner-border"></div>
 
                 <button
-                    v-if="data && data.user.todos.paginatorInfo.hasMorePages && hasMore"
+                    v-if="data && data.user.todos.paginatorInfo.hasMorePages"
                     type="button"
                     class="btn btn-primary"
                     @click="loadMoreTodos(query)">Load
@@ -23,6 +23,8 @@
 
         <button v-if="!loadTodosButtonClicked" type="button" class="btn btn-primary" @click="loadTodosButtonClicked = true">Load Todos
         </button>
+
+        <create-todo />
     </div>
 </template>
 
@@ -32,8 +34,10 @@
  */
 import Queries from '@/graphql/types/authentication/graphql-query/queries';
 import TodoQueries from '@/graphql/types/todos/graphql-query/queries';
+import CreateTodo from '@/components/CreateTodo';
 
 export default {
+    components: { CreateTodo },
     apollo: {
         user: Queries.getCurrentUser,
     },
@@ -42,7 +46,6 @@ export default {
         return {
             loadTodosButtonClicked: false,
             page: 1,
-            hasMore: true,
         };
     },
     methods: {
@@ -56,13 +59,12 @@ export default {
                         return previousState;
                     }
 
-                    this.hasMore = fetchMoreResult.user.todos.paginatorInfo.hasMorePages;
-
                     return {
                         user: {
                             ...previousState.user,
                             todos: {
                                 data: [...previousState.user.todos.data, ...fetchMoreResult.user.todos.data],
+                                paginatorInfo: { ...fetchMoreResult.user.todos.paginatorInfo },
                                 __typename: previousState.user.todos.__typename,
                             },
                         },

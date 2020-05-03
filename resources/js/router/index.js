@@ -35,7 +35,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    const { data: { user } } = await getCurrentUser();
+    const user = await getCurrentUser();
 
     if (to.name === 'login' && user) {
         return next({
