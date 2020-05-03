@@ -29,18 +29,18 @@ const router = new VueRouter({
     mode: 'history',
 });
 
-router.beforeEach(async (from, to, next) => {
+router.beforeEach(async (to, from, next) => {
     const { data: { user } } = await client.query({
         query: getCurrentUser,
     });
 
-    if ((from.name === 'login' || to.name === 'login') && user) {
+    if (to.name === 'login' && user) {
         return next({
             name: 'dashboard',
         });
     }
 
-    if (from.name !== 'login' && !user) {
+    if (to.name !== 'login' && !user) {
         return next({
             name: 'login',
         });

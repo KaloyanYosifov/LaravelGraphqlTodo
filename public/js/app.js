@@ -7229,6 +7229,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _features_authentication_mutations_signIn_graphql__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/features/authentication/mutations/signIn.graphql */ "./resources/js/features/authentication/mutations/signIn.graphql");
+/* harmony import */ var _features_authentication_mutations_signIn_graphql__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_features_authentication_mutations_signIn_graphql__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _features_authentication_queries_getCurrentUser_graphql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/features/authentication/queries/getCurrentUser.graphql */ "./resources/js/features/authentication/queries/getCurrentUser.graphql");
+/* harmony import */ var _features_authentication_queries_getCurrentUser_graphql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_features_authentication_queries_getCurrentUser_graphql__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -7260,8 +7272,104 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/**
+ * Internal dependencies.
+ */
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'login'
+  name: 'login',
+  data: function data() {
+    return {
+      email: '',
+      password: '',
+      loading: false
+    };
+  },
+  methods: {
+    onSubmit: function onSubmit() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _yield$_this$$apollo$, user;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(!_this.email || !_this.password || _this.loading)) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 2:
+                _this.loading = true;
+                _context.prev = 3;
+                _context.next = 6;
+                return _this.$apollo.mutate({
+                  mutation: _features_authentication_mutations_signIn_graphql__WEBPACK_IMPORTED_MODULE_1___default.a,
+                  variables: {
+                    input: {
+                      email: _this.email,
+                      password: _this.password
+                    }
+                  },
+                  update: function update(cache, _ref) {
+                    var user = _ref.data.signIn;
+                    cache.writeQuery({
+                      query: _features_authentication_queries_getCurrentUser_graphql__WEBPACK_IMPORTED_MODULE_2___default.a,
+                      data: {
+                        user: user
+                      }
+                    });
+                  }
+                });
+
+              case 6:
+                _yield$_this$$apollo$ = _context.sent;
+                user = _yield$_this$$apollo$.data.signIn;
+                window.localStorage.setItem('laravel_api_token', user.api_token);
+
+                _this.$router.push({
+                  name: 'dashboard'
+                });
+
+                _context.next = 15;
+                break;
+
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](3);
+                console.log(_context.t0);
+
+              case 15:
+                _context.prev = 15;
+                _this.loading = false;
+                return _context.finish(15);
+
+              case 18:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[3, 12, 15, 18]]);
+      }))();
+    }
+  }
 });
 
 /***/ }),
@@ -33930,32 +34038,44 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "d-flex flex-column align-items-center justify-content-center position-ref h-100"
-      },
-      [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-9 col-md-7 col-lg-5 mx-auto" }, [
-              _c("div", { staticClass: "card card-signin my-5" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h5", { staticClass: "card-title text-center" }, [
-                    _vm._v("Sign In")
-                  ]),
-                  _vm._v(" "),
-                  _c("form", { staticClass: "form-signin" }, [
+  return _c(
+    "div",
+    {
+      staticClass:
+        "d-flex flex-column align-items-center justify-content-center position-ref h-100"
+    },
+    [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-9 col-md-7 col-lg-5 mx-auto" }, [
+            _c("div", { staticClass: "card card-signin my-5" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title text-center" }, [
+                  _vm._v("Sign In")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    staticClass: "form-signin",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.onSubmit($event)
+                      }
+                    }
+                  },
+                  [
                     _c("div", { staticClass: "form-label-group mb-3" }, [
                       _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.email,
+                            expression: "email"
+                          }
+                        ],
                         staticClass: "form-control",
                         attrs: {
                           type: "email",
@@ -33963,41 +34083,49 @@ var staticRenderFns = [
                           placeholder: "Email address",
                           required: "",
                           autofocus: ""
+                        },
+                        domProps: { value: _vm.email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.email = $event.target.value
+                          }
                         }
                       })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-label-group mb-3" }, [
                       _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.password,
+                            expression: "password"
+                          }
+                        ],
                         staticClass: "form-control",
                         attrs: {
                           type: "password",
                           id: "inputPassword",
                           placeholder: "Password",
                           required: ""
+                        },
+                        domProps: { value: _vm.password },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.password = $event.target.value
+                          }
                         }
                       })
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "custom-control custom-checkbox mb-3" },
-                      [
-                        _c("input", {
-                          staticClass: "custom-control-input",
-                          attrs: { type: "checkbox", id: "customCheck1" }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "custom-control-label",
-                            attrs: { for: "customCheck1" }
-                          },
-                          [_vm._v("Remember password")]
-                        )
-                      ]
-                    ),
+                    _vm._m(0),
                     _vm._v(" "),
                     _c(
                       "button",
@@ -34008,14 +34136,33 @@ var staticRenderFns = [
                       },
                       [_vm._v("Sign in")]
                     )
-                  ])
-                ])
+                  ]
+                )
               ])
             ])
           ])
         ])
-      ]
-    )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "custom-control custom-checkbox mb-3" }, [
+      _c("input", {
+        staticClass: "custom-control-input",
+        attrs: { type: "checkbox", id: "customCheck1" }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        { staticClass: "custom-control-label", attrs: { for: "customCheck1" } },
+        [_vm._v("Remember password")]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -49990,6 +50137,139 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/features/authentication/mutations/signIn.graphql":
+/*!***********************************************************************!*\
+  !*** ./resources/js/features/authentication/mutations/signIn.graphql ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignIn"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInInput"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signIn"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"api_token"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":118}};
+    doc.loc.source = {"body":"mutation SignIn($input: SignInInput!) {\n    signIn(input: $input) {\n        id\n        name\n        api_token\n    }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["SignIn"] = oneQuery(doc, "SignIn");
+        
+
+
+/***/ }),
+
 /***/ "./resources/js/features/authentication/queries/getCurrentUser.graphql":
 /*!*****************************************************************************!*\
   !*** ./resources/js/features/authentication/queries/getCurrentUser.graphql ***!
@@ -50310,7 +50590,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history'
 });
 router.beforeEach( /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(from, to, next) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(to, from, next) {
     var _yield$client$query, user;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -50326,7 +50606,7 @@ router.beforeEach( /*#__PURE__*/function () {
             _yield$client$query = _context.sent;
             user = _yield$client$query.data.user;
 
-            if (!((from.name === 'login' || to.name === 'login') && user)) {
+            if (!(to.name === 'login' && user)) {
               _context.next = 6;
               break;
             }
@@ -50336,7 +50616,7 @@ router.beforeEach( /*#__PURE__*/function () {
             }));
 
           case 6:
-            if (!(from.name !== 'login' && !user)) {
+            if (!(to.name !== 'login' && !user)) {
               _context.next = 8;
               break;
             }
