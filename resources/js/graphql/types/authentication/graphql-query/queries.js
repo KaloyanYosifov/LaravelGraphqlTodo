@@ -3,7 +3,7 @@
  */
 import gql from 'graphql-tag';
 
-export const getCurrentUser = gql`
+const getCurrentUser = gql`
     query GetCurrentUser {
         user: me {
             id
@@ -11,3 +11,7 @@ export const getCurrentUser = gql`
         }
     }
 `;
+
+export default {
+    getCurrentUser,
+};

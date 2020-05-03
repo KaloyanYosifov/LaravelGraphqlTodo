@@ -8,11 +8,11 @@
 /**
  * Internal dependencies.
  */
-import { getCurrentUser } from '@/graphql/types/authentication/graphql-query/queries';
+import Queries from '@/graphql/types/authentication/graphql-query/queries';
 
 export default {
     apollo: {
-        user: getCurrentUser,
+        user: Queries.getCurrentUser,
     },
     name: 'Dashboard',
 };

@@ -37,7 +37,7 @@ router.beforeEach(async (to, from, next) => {
         });
     }
 
-    if (to.name !== 'login' && !user) {
+    if ((to.name !== 'login' && to.name !== 'register') && !user) {
         return next({
             name: 'login',
         });
