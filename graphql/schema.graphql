@@ -26,7 +26,7 @@ type UserWithToken {
     name: String!
     email: String!
     api_token: String!
-    todos: [Todo]! @hasMany
+    todos(input: FindTodoInput): [Todo]! @hasMany(type: "paginator", defaultCount: 10)
     createdAt: DateTime! @rename(attribute: "created_at")
     updatedAt: DateTime! @rename(attribute: "updated_at")
 }
