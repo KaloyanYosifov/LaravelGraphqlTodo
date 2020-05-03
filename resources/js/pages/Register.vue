@@ -5,8 +5,18 @@
                 <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                     <div class="card card-signin my-5">
                         <div class="card-body">
-                            <h5 class="card-title text-center">Sign In</h5>
+                            <h5 class="card-title text-center">Sign Up</h5>
                             <form class="form-signin" @submit.prevent="onSubmit">
+                                <div class="form-label-group mb-3">
+                                    <input type="name"
+                                        id="inputName"
+                                        class="form-control"
+                                        placeholder="Name"
+                                        v-model="name"
+                                        required
+                                        autofocus>
+                                </div>
+
                                 <div class="form-label-group mb-3">
                                     <input type="email"
                                         id="inputEmail"
@@ -30,7 +40,10 @@
                                     <input type="checkbox" class="custom-control-input" id="customCheck1">
                                     <label class="custom-control-label" for="customCheck1">Remember password</label>
                                 </div>
-                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" :disabled="loading">
+                                    <span v-if="loading">Loading</span>
+                                    <span v-else>Sign up</span>
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -44,13 +57,14 @@
 /**
  * Internal dependencies.
  */
-import { signIn } from '@/graphql/types/authentication/mutations';
+import { signUp } from '@/graphql/types/authentication/mutations';
 
 export default {
-    name: 'Login',
+    name: 'Register',
     data() {
         return {
             email: '',
+            name: '',
             password: '',
             loading: false,
         };
@@ -64,9 +78,9 @@ export default {
             this.loading = true;
 
             try {
-                const { email, password } = this;
+                const { name, email, password } = this;
 
-                await signIn({ email, password });
+                await signUp({ name, email, password });
 
                 this.$router.push({ name: 'dashboard' });
             } catch (error) {

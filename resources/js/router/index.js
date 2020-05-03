@@ -7,6 +7,7 @@ import VueRouter from 'vue-router';
  * Internal dependencies.
  */
 import Login from '@/pages/Login';
+import Register from '@/pages/Register';
 import Dashboard from '@/pages/Dashboard';
 import { getCurrentUser } from '@/graphql/types/authentication/queries';
 
@@ -15,6 +16,11 @@ const routes = [
         name: 'dashboard',
         path: '/',
         component: Dashboard,
+    },
+    {
+        name: 'register',
+        path: '/register',
+        component: Register,
     },
     {
         name: 'login',
