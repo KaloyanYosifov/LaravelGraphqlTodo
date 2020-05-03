@@ -1,5 +1,5 @@
 query GetCurrentUser {
-    me {
+    user: me {
         id
         name
     }

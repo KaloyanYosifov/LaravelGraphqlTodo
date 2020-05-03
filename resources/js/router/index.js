@@ -2,15 +2,21 @@
  * External dependencies.
  */
 import VueRouter from 'vue-router';
-import gql from 'graphql-tag';
 
 /**
  * Internal dependencies.
  */
-import Login from '@/pages/login';
 import client from '@/client';
+import Login from '@/pages/Login';
+import Dashboard from '@/pages/Dashboard';
+import getCurrentUser from '@/features/authentication/queries/getCurrentUser.graphql';
 
 const routes = [
+    {
+        name: 'dashboard',
+        path: '/',
+        component: Dashboard,
+    },
     {
         name: 'login',
         path: '/login',
@@ -24,11 +30,17 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (from, to, next) => {
-    const { data: { user } } = client.query({
-        query: '',
+    const { data: { user } } = await client.query({
+        query: getCurrentUser,
     });
 
-    if (from.name !== 'login' && !localStorage.getItem('laravel_api_token')) {
+    if ((from.name === 'login' || to.name === 'login') && user) {
+        return next({
+            name: 'dashboard',
+        });
+    }
+
+    if (from.name !== 'login' && !user) {
         return next({
             name: 'login',
         });
