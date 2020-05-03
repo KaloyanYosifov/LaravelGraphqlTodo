@@ -6,10 +6,9 @@ import VueRouter from 'vue-router';
 /**
  * Internal dependencies.
  */
-import client from '@/client';
 import Login from '@/pages/Login';
 import Dashboard from '@/pages/Dashboard';
-import getCurrentUser from '@/features/authentication/queries/getCurrentUser.graphql';
+import { getCurrentUser } from '@/graphql/types/authentication/queries';
 
 const routes = [
     {
@@ -30,9 +29,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    const { data: { user } } = await client.query({
-        query: getCurrentUser,
-    });
+    const { data: { user } } = await getCurrentUser();
 
     if (to.name === 'login' && user) {
         return next({

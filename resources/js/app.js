@@ -11,7 +11,7 @@ import VueApollo from 'vue-apollo';
 import './bootstrap';
 import App from '@/components/App';
 import router from '@/router';
-import client from '@/client';
+import client from '@/graphql/client';
 
 Vue.use(VueRouter);
 Vue.use(VueApollo);

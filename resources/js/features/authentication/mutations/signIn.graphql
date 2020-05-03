@@ -1,7 +1,0 @@
-mutation SignIn($input: SignInInput!) {
-    signIn(input: $input) {
-        id
-        name
-        api_token
-    }
-}

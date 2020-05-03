@@ -44,8 +44,7 @@
 /**
  * Internal dependencies.
  */
-import SignIn from '@/features/authentication/mutations/signIn.graphql';
-import getCurrentUser from '@/features/authentication/queries/getCurrentUser.graphql';
+import { signIn } from '@/graphql/types/authentication/mutations';
 
 export default {
     name: 'login',
@@ -65,23 +64,9 @@ export default {
             this.loading = true;
 
             try {
-                const { data: { signIn: user } } = await this.$apollo.mutate({
-                    mutation: SignIn,
-                    variables: {
-                        input: {
-                            email: this.email,
-                            password: this.password,
-                        },
-                    },
-                    update(cache, { data: { signIn: user } }) {
-                        cache.writeQuery({
-                            query: getCurrentUser,
-                            data: { user },
-                        });
-                    },
-                });
+                const { email, password } = this;
 
-                window.localStorage.setItem('laravel_api_token', user.api_token);
+                await signIn({ email, password });
 
                 this.$router.push({ name: 'dashboard' });
             } catch (error) {
