@@ -10882,3 +10882,9 @@ a.text-dark:focus {
   }
 }
 
+html,
+body {
+  display: block;
+  height: 100%;
+}
+
